@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "paczka_kolo2", "paczka_kolo2\paczka_kolo2.vcxproj", "{0AF98647-E449-450F-AFCE-92A4EC20EFFE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0AF98647-E449-450F-AFCE-92A4EC20EFFE}.Debug|x64.ActiveCfg = Debug|x64
+		{0AF98647-E449-450F-AFCE-92A4EC20EFFE}.Debug|x64.Build.0 = Debug|x64
+		{0AF98647-E449-450F-AFCE-92A4EC20EFFE}.Debug|x86.ActiveCfg = Debug|Win32
+		{0AF98647-E449-450F-AFCE-92A4EC20EFFE}.Debug|x86.Build.0 = Debug|Win32
+		{0AF98647-E449-450F-AFCE-92A4EC20EFFE}.Release|x64.ActiveCfg = Release|x64
+		{0AF98647-E449-450F-AFCE-92A4EC20EFFE}.Release|x64.Build.0 = Release|x64
+		{0AF98647-E449-450F-AFCE-92A4EC20EFFE}.Release|x86.ActiveCfg = Release|Win32
+		{0AF98647-E449-450F-AFCE-92A4EC20EFFE}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5801E257-2964-438A-BB58-64C8178F8F70}
+	EndGlobalSection
+EndGlobal

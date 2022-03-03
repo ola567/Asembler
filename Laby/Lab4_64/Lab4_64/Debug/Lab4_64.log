@@ -1,0 +1,14 @@
+﻿  Assembling szukaj64.asm...
+szukaj64.asm(8): error A2006: undefined symbol : rbx
+szukaj64.asm(9): error A2006: undefined symbol : rsi
+szukaj64.asm(11): error A2006: undefined symbol : rbx
+szukaj64.asm(12): error A2006: undefined symbol : rcx
+szukaj64.asm(13): error A2006: undefined symbol : rsi
+szukaj64.asm(17): error A2006: undefined symbol : rax
+szukaj64.asm(20): error A2006: undefined symbol : rcx
+szukaj64.asm(23): error A2006: undefined symbol : rsi
+szukaj64.asm(24): error A2006: undefined symbol : rax
+szukaj64.asm(26): error A2006: undefined symbol : rax
+szukaj64.asm(31): error A2006: undefined symbol : rsi
+szukaj64.asm(32): error A2006: undefined symbol : rbx
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Microsoft\VC\v160\BuildCustomizations\masm.targets(70,5): error MSB3721: The command "ml.exe /c /nologo /Zi /Fo"Debug\szukaj64.obj" /W3 /errorReport:prompt  /Taszukaj64.asm" exited with code 1.

@@ -1,0 +1,271 @@
+Microsoft (R) Macro Assembler Version 14.28.29335.0	    10/24/21 14:44:31
+Source.asm						     Page 1 - 1
+
+
+				.686
+				.model flat
+
+				extern _ExitProcess@4 : PROC
+				extern _MessageBoxA@16 : PROC
+				extern _MessageBoxW@16 : PROC
+				extern __write : PROC ; (dwa znaki podkreúlenia)
+				extern __read : PROC ; (dwa znaki podkreúlenia)
+
+				public _main
+
+ 00000000			.data
+ 00000000 0A 50 72 6F 73	tekst_pocz		db 10, 'Prosze napisac jakis tekst '
+	   7A 65 20 6E 61
+	   70 69 73 61 63
+	   20 6A 61 6B 69
+	   73 20 74 65 6B
+	   73 74 20
+ 0000001C  69 20 6E 61 63					db 'i nacisnac Enter', 10
+	   69 73 6E 61 63
+	   20 45 6E 74 65
+	   72 0A
+ 0000002D 00			koniec_t		db ?
+ 0000002E			magazyn			db 80 dup (?)
+ 0000007E 0A			nowa_linia		db 10
+ 0000007F 00000000		liczba_znakow	dd ?
+ 00000083 5A 61 64 61 6E	tytul			db 'Zadanie 2.6', 0
+	   69 65 20 32 2E
+	   36 00
+ 0000008F 005A 0061 0064	tytul_UC		dw 'Z','a','d','2','.','7'
+	   0032 002E 0037
+ 0000009B  0000 0000						dw 0,0
+ 0000009F A0			magazyn2		db 160
+
+ 00000000			.code
+ 00000000			_main PROC
+				; wyúwietlenie tekstu informacyjnego
+				; liczba znakÛw tekstu
+ 00000000  B9 0000002D		 mov ecx,(OFFSET koniec_t) - (OFFSET tekst_pocz)
+ 00000005  51			 push ecx
+ 00000006  68 00000000 R	 push OFFSET tekst_pocz ; adres tekstu
+ 0000000B  6A 01		 push 1
+ 0000000D  E8 00000000 E	 call __write 
+ 00000012  83 C4 0C		 add esp, 12 
+ 00000015  6A 50		 push 80 ; maksymalna liczba znakÛw
+ 00000017  68 0000002E R	 push OFFSET magazyn
+ 0000001C  6A 00		 push 0
+ 0000001E  E8 00000000 E	 call __read 
+ 00000023  83 C4 0C		 add esp, 12 
+ 00000026  A3 0000007F R	 mov liczba_znakow, eax
+ 0000002B  8B C8		 mov ecx, eax
+ 0000002D  BB 00000000		 mov ebx, 0
+
+ 00000032			ptl:
+ 00000032  8A 93 0000002E R	mov dl, magazyn[ebx]
+
+ 00000038  80 FA A5		cmp dl, 165 ; π
+ 0000003B  80 FA A4		cmp dl, 164 ; •
+ 0000003E  0F 84 0000008F	je dodaj1
+ 00000044  80 FA A9		cmp dl, 169 ; Í
+ 00000047  0F 84 00000095	je dodaj_33
+ 0000004D  80 FA A8		cmp dl, 168 ;  
+ 00000050  74 7C		je dodaj_34
+ 00000052  80 FA E4		cmp dl, 228 ; Ò
+ 00000055  0F 84 00000082	je odejmij_19
+ 0000005B  80 FA E3		cmp dl, 227 ; —
+ 0000005E  74 69		je odejmij_18
+ 00000060  80 FA 98		cmp dl, 152 ; ú
+ 00000063  74 73		je odejmij_12
+ 00000065  80 FA 97		cmp dl, 151 ; å
+ 00000068  74 5A		je odejmij_11
+ 0000006A  80 FA BE		cmp dl, 190 ; ø
+ 0000006D  74 78		je odejmij_15
+ 0000006F  80 FA BD		cmp dl, 189 ; Ø
+ 00000072  74 37		je odejmij_14
+ 00000074  80 FA 86		cmp dl, 134 ; Ê
+ 00000077  74 73		je dodaj_64
+ 00000079  80 FA 8F		cmp dl, 143 ; ∆
+ 0000007C  74 32		je dodaj_55
+ 0000007E  80 FA 88		cmp dl, 136 ; ≥
+ 00000081  74 6E		je dodaj_27
+ 00000083  80 FA 9D		cmp dl, 157 ; £
+ 00000086  74 2D		je dodaj_6
+ 00000088  80 FA A2		cmp dl, 162 ; Û
+ 0000008B  74 69		je dodaj_49
+ 0000008D  80 FA E0		cmp dl, 224 ; ”
+ 00000090  74 28		je odejmij_13
+ 00000092  80 FA AB		cmp dl, 171 ; ü
+ 00000095  74 64		je odejmij_28 
+ 00000097  80 FA 8D		cmp dl, 141 ; è
+ 0000009A  74 23		je dodaj2
+
+ 0000009C  80 FA 61		 cmp dl, 'a'
+ 0000009F  72 67		 jb dalej 
+ 000000A1  80 FA 7A		 cmp dl, 'z'
+ 000000A4  77 62		 ja dalej 
+ 000000A6  80 EA 20		 sub dl, 20H 
+ 000000A9  EB 55		 jmp dalej2
+
+ 000000AB			 odejmij_14:
+ 000000AB  80 EA 0E		 sub dl, 14
+ 000000AE  EB 50		 jmp dalej2
+
+ 000000B0			 dodaj_55:
+ 000000B0  80 C2 37		 add dl, 55
+ 000000B3  EB 4B		 jmp dalej2
+
+ 000000B5			 dodaj_6:
+ 000000B5  80 C2 06		 add dl, 6
+ 000000B8  EB 46		 jmp dalej2
+
+ 000000BA			 odejmij_13:
+ 000000BA  80 EA 0D		 sub dl, 13
+ 000000BD  EB 41		 jmp dalej2
+
+ 000000BF			 dodaj2:
+ 000000BF  80 C2 02		 add dl, 2
+ 000000C2  EB 3C		 jmp dalej2
+
+ 000000C4			 odejmij_11:
+ 000000C4  80 EA 0B		 sub dl, 11
+ 000000C7  EB 37		 jmp dalej2
+
+ 000000C9			 odejmij_18:
+ 000000C9  80 EA 12		 sub dl, 18
+ 000000CC  EB 32		 jmp dalej2
+
+ 000000CE			 dodaj_34:
+ 000000CE  80 C2 22		 add dl, 34
+ 000000D1  EB 2D		 jmp dalej2
+
+ 000000D3			 dodaj1:
+ 000000D3  80 C2 01		 add dl, 1
+ 000000D6  EB 28		 jmp dalej2
+
+ 000000D8			 odejmij_12:
+ 000000D8  80 EA 0C		 sub dl, 12
+ 000000DB  EB 23		 jmp dalej2
+
+ 000000DD			 odejmij_19:
+ 000000DD  80 EA 13		 sub dl, 19
+ 000000E0  EB 1E		 jmp dalej2
+
+ 000000E2			 dodaj_33:
+ 000000E2  80 C2 21		 add dl, 33
+ 000000E5  EB 19		 jmp dalej2
+
+ 000000E7			 odejmij_15:
+ 000000E7  80 EA 0F		 sub dl, 15
+ 000000EA  EB 14		 jmp dalej2
+
+ 000000EC			 dodaj_64:
+ 000000EC  80 C2 40		 add dl, 64
+ 000000EF  EB 0F		 jmp dalej2
+
+ 000000F1			 dodaj_27:
+ 000000F1  80 C2 1B		 add dl, 27
+ 000000F4  EB 0A		 jmp dalej2
+
+ 000000F6			 dodaj_49:
+ 000000F6  80 C2 31		 add dl, 49
+ 000000F9  EB 05		 jmp dalej2
+
+ 000000FB			 odejmij_28:
+ 000000FB  80 EA 1C		 sub dl, 28
+ 000000FE  EB 00		 jmp dalej2
+				 
+ 00000100			dalej2:
+ 00000100  88 93 0000002E R	mov magazyn[ebx], dl
+ 00000106  EB 00		jmp dalej
+
+ 00000108			dalej: 
+ 00000108  43			inc ebx
+ 00000109  49			dec ecx
+ 0000010A  0F 85 FFFFFF22	jnz ptl
+
+ 00000110  6A 00		push 0
+ 00000112  68 0000008F R	push offset tytul_UC
+ 00000117  68 0000009F R	push offset magazyn2
+ 0000011C  6A 00		push 0
+ 0000011E  E8 00000000 E	call _MessageBoxW@16
+
+ 00000123  6A 00		push 0
+ 00000125  E8 00000000 E	call _ExitProcess@4
+
+ 0000012A			_main ENDP
+				END
+
+
+
+
+
+
+
+
+
+Microsoft (R) Macro Assembler Version 14.28.29335.0	    10/24/21 14:44:31
+Source.asm						     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+_DATA  . . . . . . . . . . . . .	32 Bit	 000000A0 Para	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 0000012A Para	  Public  'CODE'	
+
+
+Procedures, parameters, and locals:
+
+                N a m e                 Type     Value    Attr
+
+_main  . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 0000012A Public
+  ptl  . . . . . . . . . . . . .	L Near	 00000032 _TEXT	
+  odejmij_14 . . . . . . . . . .	L Near	 000000AB _TEXT	
+  dodaj_55 . . . . . . . . . . .	L Near	 000000B0 _TEXT	
+  dodaj_6  . . . . . . . . . . .	L Near	 000000B5 _TEXT	
+  odejmij_13 . . . . . . . . . .	L Near	 000000BA _TEXT	
+  dodaj2 . . . . . . . . . . . .	L Near	 000000BF _TEXT	
+  odejmij_11 . . . . . . . . . .	L Near	 000000C4 _TEXT	
+  odejmij_18 . . . . . . . . . .	L Near	 000000C9 _TEXT	
+  dodaj_34 . . . . . . . . . . .	L Near	 000000CE _TEXT	
+  dodaj1 . . . . . . . . . . . .	L Near	 000000D3 _TEXT	
+  odejmij_12 . . . . . . . . . .	L Near	 000000D8 _TEXT	
+  odejmij_19 . . . . . . . . . .	L Near	 000000DD _TEXT	
+  dodaj_33 . . . . . . . . . . .	L Near	 000000E2 _TEXT	
+  odejmij_15 . . . . . . . . . .	L Near	 000000E7 _TEXT	
+  dodaj_64 . . . . . . . . . . .	L Near	 000000EC _TEXT	
+  dodaj_27 . . . . . . . . . . .	L Near	 000000F1 _TEXT	
+  dodaj_49 . . . . . . . . . . .	L Near	 000000F6 _TEXT	
+  odejmij_28 . . . . . . . . . .	L Near	 000000FB _TEXT	
+  dalej2 . . . . . . . . . . . .	L Near	 00000100 _TEXT	
+  dalej  . . . . . . . . . . . .	L Near	 00000108 _TEXT	
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000000h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+_ExitProcess@4 . . . . . . . . .	L Near	 00000000 FLAT	External
+_MessageBoxA@16  . . . . . . . .	L Near	 00000000 FLAT	External
+_MessageBoxW@16  . . . . . . . .	L Near	 00000000 FLAT	External
+__read . . . . . . . . . . . . .	L Near	 00000000 FLAT	External
+__write  . . . . . . . . . . . .	L Near	 00000000 FLAT	External
+koniec_t . . . . . . . . . . . .	Byte	 0000002D _DATA	
+liczba_znakow  . . . . . . . . .	DWord	 0000007F _DATA	
+magazyn2 . . . . . . . . . . . .	Byte	 0000009F _DATA	
+magazyn  . . . . . . . . . . . .	Byte	 0000002E _DATA	
+nowa_linia . . . . . . . . . . .	Byte	 0000007E _DATA	
+tekst_pocz . . . . . . . . . . .	Byte	 00000000 _DATA	
+tytul_UC . . . . . . . . . . . .	Word	 0000008F _DATA	
+tytul  . . . . . . . . . . . . .	Byte	 00000083 _DATA	
+
+	   0 Warnings
+	   0 Errors

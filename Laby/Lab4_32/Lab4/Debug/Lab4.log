@@ -1,0 +1,4 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(491,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (Lab4.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  main.c
+C:\Users\Ola\Desktop\III-sem\AKO\Kody\Lab4_32\Lab4\main.c(9,1): warning C4244: 'initializing': conversion from '__int64' to 'long', possible loss of data
+  Lab4.vcxproj -> C:\Users\Ola\Desktop\III-sem\AKO\Kody\Lab4_32\Debug\Lab4_32.exe

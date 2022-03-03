@@ -1,0 +1,60 @@
+Microsoft (R) Macro Assembler Version 14.28.29335.0	    10/23/21 16:40:31
+laby.asm						     Page 1 - 1
+
+
+				.686
+				.model flat
+
+				extern _MessageBoxW@16 : PROC
+				extern _ExitProcess@4 : PROC
+
+				public _main
+
+ 00000000			.data
+
+ 00000000			.code
+ 00000000			_main PROC
+ 00000000  B8 00000002			mov eax, 2
+ 00000005  43				inc ebx
+ 00000006			_main ENDP
+				END
+Microsoft (R) Macro Assembler Version 14.28.29335.0	    10/23/21 16:40:31
+laby.asm						     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+_DATA  . . . . . . . . . . . . .	32 Bit	 00000000 Para	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 00000006 Para	  Public  'CODE'	
+
+
+Procedures, parameters, and locals:
+
+                N a m e                 Type     Value    Attr
+
+_main  . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 00000006 Public
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000000h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+_ExitProcess@4 . . . . . . . . .	L Near	 00000000 FLAT	External
+_MessageBoxW@16  . . . . . . . .	L Near	 00000000 FLAT	External
+
+	   0 Warnings
+	   0 Errors

@@ -1,0 +1,3 @@
+﻿  Assembling zad1.asm...
+zad1.asm(27): error A2088: END directive required at end of file
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Microsoft\VC\v160\BuildCustomizations\masm.targets(70,5): error MSB3721: The command "ml.exe /c /nologo /Zi /Fo"Debug\zad1.obj" /W3 /errorReport:prompt -Fl  /Tazad1.asm" exited with code 1.
